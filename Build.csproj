@@ -1,0 +1,31 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="default">
+  <PropertyGroup>
+    <AssemblyName>MSBuildSample</AssemblyName>
+    <Configuration Condition="'$(Configuration)'==''" >Release</Configuration>
+    <ProjectPath>C:\Maldo\Pranali\Nuget\Build</ProjectPath>
+    <OutputPath>Bin\Debug\net6.0\</OutputPath>
+    <PackagePath>$(ProjectPath)\package\</PackagePath>
+  </PropertyGroup>
+  <Target Name="default" DependsOnTargets="Build; Package" />
+ 
+  <ItemGroup>
+    <Compile Include="Class1.cs"/>
+  </ItemGroup>
+  <Target Name="Build">
+    <MakeDir Directories="$(OutputPath)" Condition="!Exists('$(OutputPath)')"/>
+    <Csc Sources="@(Compile)" OutputAssembly="$(OutputPath)$(AssemblyName).dll" TargetType="library" EmitDebugInformation="true"/>
+  </Target>
+  <Target Name="Package">
+    <ItemGroup>
+      <MainBinaries Include="$(OutputPath)\MSBuildSample.dll"/>
+    </ItemGroup>
+    <Copy SourceFiles="$(ProjectPath)\Build.nuspec" DestinationFolder="$(PackagePath)"/>
+    <Copy SourceFiles="@(MainBinaries)" DestinationFolder="$(PackagePath)"/>
+    <GetAssemblyIdentity AssemblyFiles="$(OutputPath)$(AssemblyName).dll">
+      <Output TaskParameter="Assemblies" ItemName="AsmInfo" />
+    </GetAssemblyIdentity>
+
+    <Exec WorkingDirectory="$(PackagePath)" Command="nuget pack $(PackagePath)Build.nuspec"/>
+         <!--Command="$(ProjectPath)nuget pack $(PackagePath)tempMaldotech7.nuspec"/-->
+  </Target>
+</Project>

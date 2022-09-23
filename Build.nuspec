@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>Applogger</id>
+    <version>1.0.0</version>
+    <title>Maldotech</title>
+    <authors>Maldotech</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <!-- <icon>icon.png</icon> -->
+    <description>the package for the appogger</description>
+    <copyright>copyright</copyright>
+    <tags>Logging Logger Log</tags>
+  </metadata>
+  <files>
+    <file src="MSBuildSample.dll" target="lib\net6.0" />
+  </files>
+</package>
