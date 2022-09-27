@@ -20,9 +20,9 @@
   </Target>
   <Target Name="Package">
     <ItemGroup>
-      <MainBinaries Include="$(OutputPath)\MSBuildSample.dll"/>
+      <MainBinaries Include="$(OutputPath)/MSBuildSample.dll"/>
     </ItemGroup>
-    <Copy SourceFiles="$(ProjectPath)\Build.nuspec" DestinationFolder="$(PackagePath)"/>
+    <Copy SourceFiles="$(ProjectPath)/Build.nuspec" DestinationFolder="$(PackagePath)"/>
     <Copy SourceFiles="@(MainBinaries)" DestinationFolder="$(PackagePath)"/>
     <GetAssemblyIdentity AssemblyFiles="$(OutputPath)$(AssemblyName).dll">
       <Output TaskParameter="Assemblies" ItemName="AsmInfo" />
