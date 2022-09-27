@@ -5,8 +5,11 @@
     <ProjectPath>C:\Maldo\Pranali\Nuget\Build</ProjectPath>
     <OutputPath>Bin\Debug\net6.0\</OutputPath>
     <PackagePath>$(ProjectPath)\package\</PackagePath>
+    <Nexus_Server>192.168.0.106:8081</Nexus_Server>
+    <NEXUS_REPOSITORY>nuget-hosted</NEXUS_REPOSITORY>
+    <NEXUS_NUGET_KEY>95ffd762-8901-34ae-a2b9-398300d19dd4</NEXUS_NUGET_KEY>
   </PropertyGroup>
-  <Target Name="default" DependsOnTargets="Build; Package" />
+  <Target Name="default" DependsOnTargets="Build; Package; Push" />
  
   <ItemGroup>
     <Compile Include="Class1.cs"/>
@@ -26,6 +29,9 @@
     </GetAssemblyIdentity>
 
     <Exec WorkingDirectory="$(PackagePath)" Command="nuget pack $(PackagePath)Build.nuspec"/>
+    </Target>
+    <Target Name="Push">
+    <Exec WorkingDirectory="$(PackagePath)" Command="nuget push Applogger.1.0.0.nupkg -ApiKey 1a6dfea1-16e1-39ec-9702-2f87a43ee490 -src http://192.168.0.110:8081/repository/nuget-hosted/"/>
          <!--Command="$(ProjectPath)nuget pack $(PackagePath)tempMaldotech7.nuspec"/-->
   </Target>
 </Project>
